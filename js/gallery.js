@@ -65,30 +65,35 @@ const images = [
 ];
 
 const container = document.querySelector(".gallery");
+container.addEventListener("click", handleClick);
+container.addEventListener("mouseover", onMouseOn);
+container.addEventListener("mouseout", onMouseOut)
 
 const markup = images
     .map(({preview, original, description}) => {
     return `
     <li class="gallery-item">
-  <a class="gallery-link" href=${original}>
-    <img
-      class="gallery-image"
-      src=${preview}
-      data-source=${original}
-      alt=${description}
-    />
-  </a>
-</li>`;
-})
+      <a class="gallery-link" href=${original}>
+        <img
+          class="gallery-image"
+          src=${preview}
+          data-source=${original}
+          alt=${description}
+        />
+      </a>
+    </li>`;
+      })
     .join("");
+     
 container.innerHTML = markup;
 
 const imageItem = document.querySelectorAll(".gallery-image");
-console.log(imageItem);
-for (const item of imageItem) {
-    item.style.width = '360px';
-// console.log(item.style.width);
-} 
+[...imageItem].forEach(item =>{
+  item.style.cssText = `
+  width: 360px;
+  height: 240px;`
+});
+
 container.style.cssText =
     `display: flex;
     flex-direction: row;
@@ -97,4 +102,36 @@ container.style.cssText =
     gap: 24px;
     list-style-type: none;`;
 
-// preventDefault();
+function handleClick(event) {
+  if (event.target === event.currentTarget) {
+    return;
+  }
+  event.preventDefault();
+  console.log(event.target.dataset.source);
+  const instance = basicLightbox.create(`
+    <div class="modal">
+      <img
+          class="gallery-image"
+          src=${event.target.dataset.source}
+          width="800" 
+          height="600"
+        />
+        
+`)
+  instance.show();
+};
+
+function onMouseOn(event) {
+  if (event.target === event.currentTarget) {
+    return;
+  }
+  event.target.style.scale = 1.02;
+}
+
+function onMouseOut(event) {
+  if (event.target === event.currentTarget) {
+    return;
+  }
+  event.target.style.scale = 1;
+}
+// 
