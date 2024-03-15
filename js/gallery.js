@@ -107,7 +107,6 @@ function handleClick(event) {
     return;
   }
   event.preventDefault();
-  console.log(event.target.dataset.source);
   const instance = basicLightbox.create(`
     <div class="modal">
       <img
