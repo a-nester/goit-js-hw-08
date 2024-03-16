@@ -76,9 +76,9 @@ const markup = images
       <a class="gallery-link" href=${original}>
         <img
           class="gallery-image"
-          src=${preview}
-          data-source=${original}
-          alt=${description}
+          src="${preview}"
+          data-source="${original}"
+          alt="${description}"
         />
       </a>
     </li>`;
@@ -111,7 +111,7 @@ function handleClick(event) {
     <div class="modal">
       <img
           class="gallery-image"
-          src=${event.target.dataset.source}
+          src="${event.target.dataset.source}"
           width="800" 
           height="600"
         />
